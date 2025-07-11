@@ -7,8 +7,14 @@ import {router} from "expo-router";
 
 const Profile = () => {
     const handleLogout = async () => {
-        await account.deleteSession("current")
-        router.push("/sign-in")
+        try {
+            await account.deleteSession("current")
+            router.push("/sign-in")
+        } catch (error) {
+            console.error("Logout failed:", error)
+            // Consider showing an error message to the user
+            // or navigate to sign-in anyway if session is invalid
+        }
     }
 
     return (
